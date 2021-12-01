@@ -12,27 +12,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthyBites">
         <activity
+            android:name=".Partner.AddFoodItemActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="true" />
+        <activity
             android:name=".VerifyOTPActivity"
             android:exported="true" />
         <activity
-            android:name=".PartnerDashboardActivity"
+            android:name=".Partner.PartnerDashboardActivity"
             android:exported="true" />
         <activity
-            android:name=".StoreDetailsActivity"
+            android:name=".Partner.StoreDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".FoodPartnerFormActivity"
+            android:name=".Partner.FoodPartnerFormActivity"
             android:exported="true" />
         <activity
-            android:name=".UserDetailsFormActivity"
+            android:name=".User.UserDetailsFormActivity"
             android:exported="true" />
         <activity
-            android:name=".UserDashboardActivity"
+            android:name=".User.UserDashboardActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".User.RegisterActivity"
             android:exported="true" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".User.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

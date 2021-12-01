@@ -3,14 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_add_food_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_food_partner_form.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_partner_dashboard.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_store_details.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_store_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_user_details_form.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_userdashboard.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_verify_otpactivity.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19746376811594202" />
+        <entry key="app/src/main/res/layout/kitchen_list.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.2453125" />
       </map>
     </option>
   </component>

@@ -13,20 +13,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.healthybites.Partner.PartnerDashboardActivity;
+import com.example.healthybites.User.UserDashboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 public class VerifyOTPActivity extends AppCompatActivity {
 
-    private TextView txv2;
+    private TextView txv2,txv4;
     private EditText n1,n2,n3,n4,n5,n6;
     private String verificationId;
     private Button verify;
-    FirebaseAuth auth;
+    FirebaseAuth mAuth;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    private static String mobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         txv2= (TextView)findViewById(R.id.txv2);
+        txv4 = (TextView) findViewById(R.id.txv4);
         n1=(EditText) findViewById(R.id.n1);
         n2=(EditText) findViewById(R.id.n2);
         n3=(EditText) findViewById(R.id.n3);
@@ -43,9 +52,10 @@ public class VerifyOTPActivity extends AppCompatActivity {
         n5=(EditText) findViewById(R.id.n5);
         n6=(EditText) findViewById(R.id.n6);
         verify=(Button) findViewById(R.id.verify_otp);
+        mobile = i.getStringExtra("mobile");
 
-        txv2.setText(i.getStringExtra("mobile"));
-        auth = FirebaseAuth.getInstance();
+        txv2.setText(mobile);
+        mAuth = FirebaseAuth.getInstance();
 
         setOTPinputs();
         verificationId = getIntent().getStringExtra("verificationId");
@@ -66,7 +76,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
                         +n4.getText().toString()+n5.getText().toString()+n6.getText().toString();
                 if(verificationId!=null){
                     PhoneAuthCredential phoneAuthCredential= PhoneAuthProvider.getCredential(verificationId,code);
-                    auth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    mAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
@@ -74,12 +84,16 @@ public class VerifyOTPActivity extends AppCompatActivity {
                                 if(identify.equals("user")) {
                                     Toast.makeText(VerifyOTPActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                                     Intent i = new Intent(VerifyOTPActivity.this, UserDashboardActivity.class);
+                                    i.setFlags(i.FLAG_ACTIVITY_CLEAR_TASK | i.FLAG_ACTIVITY_NEW_TASK);
+                                    i.putExtra("mobile",mobile);
                                     startActivity(i);
                                     finish();
                                 }
                                 else if(identify.equals("partner") ) {
                                     Toast.makeText(VerifyOTPActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                                     Intent i = new Intent(VerifyOTPActivity.this, PartnerDashboardActivity.class);
+                                    i.setFlags(i.FLAG_ACTIVITY_CLEAR_TASK | i.FLAG_ACTIVITY_NEW_TASK);
+                                    i.putExtra("mobile",mobile);
                                     startActivity(i);
                                     finish();
 
@@ -94,6 +108,48 @@ public class VerifyOTPActivity extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+        txv4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //resending otp
+
+                mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+                    @Override
+                    public void onVerificationCompleted(PhoneAuthCredential credential) {
+
+                    }
+
+                    @Override
+                    public void onVerificationFailed(FirebaseException e) {
+
+                        Toast.makeText(VerifyOTPActivity.this,e.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull String verificationId,
+                                           @NonNull PhoneAuthProvider.ForceResendingToken token) {
+
+                        Toast.makeText(VerifyOTPActivity.this,"Code sent again",Toast.LENGTH_SHORT).show();
+
+                    }
+                };
+
+
+
+                PhoneAuthOptions options =
+                        PhoneAuthOptions.newBuilder(mAuth)
+                                .setPhoneNumber("+91"+i.getStringExtra("mobile"))       // Phone number to verify
+                                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                                .setActivity(VerifyOTPActivity.this)                 // Activity (for callback binding)
+                                .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                                .build();
+                PhoneAuthProvider.verifyPhoneNumber(options);
             }
         });
 

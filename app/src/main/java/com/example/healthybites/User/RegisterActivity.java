@@ -1,7 +1,6 @@
-package com.example.healthybites;
+package com.example.healthybites.User;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.healthybites.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                 email.setText("");
                 password.setText("");
                 confpassword.setText("");
-                Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
+                Intent intent=new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(response.equals("true")){
                     Toast.makeText(RegisterActivity.this,"Signed in Successfully",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this,UserDetailsFormActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, UserDetailsFormActivity.class);
                     startActivity(intent);
                     finish();
 

@@ -1,4 +1,4 @@
-package com.example.healthybites;
+package com.example.healthybites.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.healthybites.Partner.FoodPartnerFormActivity;
+import com.example.healthybites.ForgotPasswordActivity;
+import com.example.healthybites.Partner.PartnerDashboardActivity;
+import com.example.healthybites.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
    EditText email , password ;
    Button login , signup ;
    FirebaseAuth auth ;
-   TextView txt;
+   TextView txt,txt_forgot;
    public static String txt_email;
    public static String check_url = "https://healthybitesapp.000webhostapp.com/check_user.php";
 
@@ -55,11 +59,21 @@ public class MainActivity extends AppCompatActivity {
         login = (Button)findViewById(R.id.login);
         auth = FirebaseAuth.getInstance();
         txt = (TextView)findViewById(R.id.txt_partner);
+        txt_forgot= (TextView)findViewById(R.id.txt_forgotpass);
 
         txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,FoodPartnerFormActivity.class);
+                Intent intent = new Intent(MainActivity.this, FoodPartnerFormActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        txt_forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -69,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -116,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(response.equals("0")){
                     Toast.makeText(MainActivity.this,"Logged in Successfully",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,UserDashboardActivity.class);
+                    Intent intent = new Intent(MainActivity.this, UserDashboardActivity.class);
                     startActivity(intent);
                     finish();
 
@@ -124,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
                 else if(response.equals("1")){
                     Toast.makeText(MainActivity.this,"Logged in Successfully",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,PartnerDashboardActivity.class);
+                    Intent intent = new Intent(MainActivity.this, PartnerDashboardActivity.class);
                     startActivity(intent);
                     finish();
                 }

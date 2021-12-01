@@ -1,4 +1,4 @@
-package com.example.healthybites;
+package com.example.healthybites.Partner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.healthybites.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -101,7 +102,7 @@ public class FoodPartnerFormActivity extends AppCompatActivity {
                 if(response.equals("true")){
                     Toast.makeText(FoodPartnerFormActivity.this,"Signed in successfully",Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(FoodPartnerFormActivity.this,StoreDetailsActivity.class);
+                    Intent intent = new Intent(FoodPartnerFormActivity.this, StoreDetailsActivity.class);
                     startActivity(intent);
 
                 }
